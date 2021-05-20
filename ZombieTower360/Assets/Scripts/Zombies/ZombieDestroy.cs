@@ -5,30 +5,22 @@ using UnityEngine;
 public class ZombieDestroy : MonoBehaviour
 {
 
+    public PlayerInfo player;
 
-    // Start is called before the first frame update
-    void Start()
+    public void ZombieShot(bool headshot)
     {
-        
+        Destroy(this.gameObject);
     }
-
-    // Update is called once per frame
-    void Update()
+    public void ZombieToMelee(Vector3 pos)
     {
-        
+        Destroy(this.gameObject);
     }
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag.Equals("EnemyTarget"))
+       if (other.gameObject.tag.Equals("EnemyTarget"))
         {
-            // Health should be lost here.
-            //Transform trialtransform = this.gameObject.GetComponent<Transform>().parent.GetComponent<Transform>();
-            Destroy(this.gameObject.GetComponent<Transform>().parent.gameObject);
-        }
-        else if (other.gameObject.tag.Equals("Out of Bounds"))
-        {
-            Destroy(this.gameObject.GetComponent<Transform>().parent.gameObject);
+            ZombieToMelee(this.gameObject.transform.position);
+            player.DamagePlayer(100);
         }
     }
 
